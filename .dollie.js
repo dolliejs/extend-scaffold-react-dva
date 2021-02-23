@@ -2,12 +2,12 @@ module.exports = {
   installers: [],
   files: {
     add: [
-      'src/models/(.*).(js|ts)',
-      'src/patches/(.*)',
+      'src/models/**/*.{js,ts}',
+      'src/patches/**/*',
     ],
     merge: [
-      'src/App.(js|tsx)',
-      'src/index.(js|tsx)',
+      'src/App.{js,tsx}',
+      'src/index.{js,tsx}',
       'package.json',
     ],
   },
