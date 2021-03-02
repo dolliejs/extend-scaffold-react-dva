@@ -2,8 +2,13 @@ module.exports = {
   installers: [],
   files: {
     add: [
-      'src/models/**/*.{js,ts}',
-      'src/patches/**/*',
+      (context) => {
+        if (context.findIndex((item) => item.scaffoldName.indexOf('extend-scaffold-react-ts') !== -1) !== -1) {
+          return ['src/models/**/*.ts', 'src/patches/**/*.tsx'];
+        } else {
+          return ['src/models/**/*.js', 'src/patches/**/*.js'];
+        }
+      },
     ],
     merge: [
       'src/App.{js,tsx}',
@@ -11,20 +16,4 @@ module.exports = {
       'package.json',
     ],
   },
-  endScripts: [
-    (context) => {
-      if (context.fs.exists('tsconfig.json')) {
-        [
-          'src/models/app.js',
-          'src/patches/dva/index.js',
-        ].forEach((pathname) => context.fs.remove(pathname));
-      } else {
-        [
-          'src/models/app.ts',
-          'src/models/index.ts',
-          'src/patches/dva/index.tsx',
-        ].forEach((pathname) => context.fs.remove(pathname));
-      }
-    },
-  ],
 };
